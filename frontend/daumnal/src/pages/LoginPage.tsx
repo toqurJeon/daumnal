@@ -1,3 +1,71 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9deeed17fb622fa9b40eecf9666972637ba5f64cb68a6e575901101473bc1872
-size 2085
+import React, { useEffect } from 'react';
+
+const { Kakao } = window;
+
+const LoginPage: React.FC = () => {
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
+  const loginWithKakao = async () => {
+    try {
+      await Kakao.Auth.authorize({
+        // redirectUri: `${process.env.REACT_APP_LOCAL_BASE_URL}/oauth`,
+        redirectUri: `${process.env.REACT_APP_SERVER_BASE_URL}/oauth`,
+        scope: 'profile_nickname',
+        prompt: 'select_account',
+      });
+    } catch (error) {
+      // console.error('카카오 로그인 에러:', error);
+    }
+  };
+
+  return (
+    // 화면 전체를 채우고 상하 중앙 정렬을 위해 수정된 스타일
+    <div className='text-center mt-20' style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center', // 요소들을 상하 중앙에 위치시키기 위해 사용
+      height: '100vh', // 화면 전체 높이를 차지하도록 설정
+      margin: '0', // 상단 여백 제거
+      transform: 'translateX(16px)', // 여기에 transform 속성 추가
+    }}>
+      <style>
+        {`
+          .bracket, .nextDay, .introText {
+            color: #696864;
+          }
+          
+          .bracket {
+            font-size: 50px; 
+            margin: 0 50px;
+          }
+          
+          .introText {
+            display: inline;
+            font-size: 25px;
+            font-weight: bold; 
+          }
+        `}
+      </style>
+      <img src="/image/login_logo.png" alt="로그인 로고" style={{width: '330px', height: '198px'}}/>
+      <div style={{ height: '50px' }}></div>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '30px' }}>
+        <span className="bracket" style={{ fontWeight: 'bold'}}>[</span>
+        <p className="introText">
+          일기와 음악과 힐링,<br />
+          여러분의 [다음:날]을 시작하세요.
+        </p>
+        <span className="bracket" style={{ fontWeight: 'bold'}}>]</span>
+      </div>
+      <div style={{ height: '50px' }}></div>
+      <button onClick={loginWithKakao} style={{ border: 'none', background: 'transparent', marginTop: '80px', width: '310px', height: '47px' }}>
+        <img src="/image/kakao_login.png" alt="카카오 로그인" />
+      </button>
+    </div>
+  );
+};
+
+export default LoginPage;

@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:da92160b78d49c063b0da14fc40378faf516446a0ef88e6c6ab71007dd0272a9
-size 606
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import 'react-quill/dist/quill.snow.css'; 
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
+  // <React.StrictMode>
+    <App />
+  /* </React.StrictMode> */
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
